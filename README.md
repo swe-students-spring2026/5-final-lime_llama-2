@@ -270,7 +270,9 @@ docker compose -f watchtower.yml down
 
 ## Testing
 
-The project already includes tests under `tests/frontend/` and `tests/recommendation_engine/`.
+The project includes tests for the two custom subsystems that contain application logic: `tests/frontend/` and `tests/recommendation_engine/`. Both subsystems exceed 80% code coverage, enforced by CI/CD.
+
+The nginx subsystem has no unit tests. It contains only a reverse proxy configuration file (`nginx/nginx.conf`) with no custom application logic, so there is nothing meaningful to unit test.
 
 Install dependencies and run the suite from the repository root:
 
