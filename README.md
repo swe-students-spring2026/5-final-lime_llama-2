@@ -112,13 +112,25 @@ recommendation-engine/data/faiss.index
 recommendation-engine/data/metadata.parquet
 ```
 
-Generate them from the repository root:
+Generate them from the repository root.
+
+On Windows:
 
 ```powershell
 python -m venv .venv
 .\.venv\Scripts\python.exe -m pip install --upgrade pip
 .\.venv\Scripts\python.exe -m pip install -r recommendation-engine\requirements.txt
 .\.venv\Scripts\python.exe recommendation-engine\scripts\preprocess.py
+```
+
+On macOS or Linux:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+python -m pip install -r recommendation-engine/requirements.txt
+python recommendation-engine/scripts/preprocess.py
 ```
 
 The preprocessing script downloads `Remsky/Embeddings__Ultimate_1Million_Movies_Dataset` from Hugging Face, parses the embedding column, builds a FAISS `IndexFlatIP`, and writes the generated files into `recommendation-engine/data/`. These files are intentionally gitignored because they are large.
@@ -253,7 +265,7 @@ This starts:
 - `nginx`
 - `watchtower`
 
-(Watchtower has been split into a seperate file as by default it will automatically update all your Docker containers, not just for this system)
+(Watchtower has been split into a separate file as by default it will automatically update all your Docker containers, not just for this system)
 
 Open:
 
