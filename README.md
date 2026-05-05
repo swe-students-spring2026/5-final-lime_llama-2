@@ -9,6 +9,8 @@ CineMatch is a containerized movie recommendation web application. Users can sea
 
 The recommendation engine uses cosine similarity over precomputed movie embeddings stored in a FAISS index. User accounts, watchlists, and activity history are stored in MongoDB.
 
+Demo the service at: https://cinematch.hxia.xyz/
+
 ## Team
 
 - [Laura Liu](https://github.com/lauraliu518)
@@ -233,6 +235,46 @@ Stop the system:
 docker compose down
 ```
 
+## Docker CI/CD without Digital Ocean
+
+The Docker images are published at:
+- https://hub.docker.com/repository/docker/hewlettpl/cinematch-recommendation-engine
+- https://hub.docker.com/repository/docker/hewlettpl/cinematch-nginx
+- https://hub.docker.com/repository/docker/hewlettpl/cinematch-frontend
+
+The alternate docker-compose file `docker-compose.deploy.yml` will pull the image from Docker Hub instead. However, first ensure the repository-root `.env` is configured and the FAISS data files exist.
+
+In order for CI/CD to redeploy CineMatch upon every new image, use `nickfedor/watchtower` a fork of the original `containrrr/watchtower`, a service that will automatically pull new images, restart the after the new one is pulled, and automatically remove old images.
+
+A sample `docker-compose.yml` for `nickfedor/watchtower` is included as `watchtower.yml`.
+
+```bash
+docker compose -f docker-compose.deploy.yml up -d 
+docker compose -f watchtower.yml up -d 
+```
+
+This starts:
+
+- `recommendation-engine`
+- `frontend`
+- `nginx`
+- `watchtower`
+
+(Watchtower has been split into a seperate file as by default it will automatically update all your Docker containers, not just for this system)
+
+Open:
+
+```text
+http://localhost
+```
+
+Stop the system:
+
+```bash
+docker compose -f docker-compose.deploy.yml down
+docker compose -f watchtower.yml down
+```
+
 ## Testing
 
 The project already includes tests under `tests/frontend/` and `tests/recommendation_engine/`.
@@ -259,6 +301,7 @@ It also includes separate subsystem workflows for:
 - `.github/workflows/nginx.yml`
 
 These workflows run the existing unit tests, validate or build the service Docker images, push images to Docker Hub, and deploy services to Digital Ocean.
+
 
 ## Technologies Used
 
