@@ -70,11 +70,9 @@ Each custom subsystem has a Dockerfile:
 - `recommendation-engine/Dockerfile`
 - `nginx/Dockerfile`
 
-TODO: Publish these images to Docker Hub and replace the placeholders below:
-
-- Frontend: `https://hub.docker.com/r/<dockerhub-user-or-org>/cinematch-frontend`
-- Recommendation engine: `https://hub.docker.com/r/<dockerhub-user-or-org>/cinematch-recommendation-engine`
-- Nginx: `https://hub.docker.com/r/<dockerhub-user-or-org>/cinematch-nginx`
+- Frontend: https://hub.docker.com/r/hewlettpl/cinematch-frontend
+- Recommendation engine: https://hub.docker.com/r/hewlettpl/cinematch-recommendation-engine
+- Nginx: https://hub.docker.com/r/hewlettpl/cinematch-nginx
 
 ## Environment Variables
 
@@ -237,11 +235,6 @@ docker compose down
 
 ## Docker CI/CD without Digital Ocean
 
-The Docker images are published at:
-- https://hub.docker.com/repository/docker/hewlettpl/cinematch-recommendation-engine
-- https://hub.docker.com/repository/docker/hewlettpl/cinematch-nginx
-- https://hub.docker.com/repository/docker/hewlettpl/cinematch-frontend
-
 The alternate docker-compose file `docker-compose.deploy.yml` will pull the image from Docker Hub instead. However, first ensure the repository-root `.env` is configured and the FAISS data files exist.
 
 In order for CI/CD to redeploy CineMatch upon every new image, use `nickfedor/watchtower` a fork of the original `containrrr/watchtower`, a service that will automatically pull new images, restart the after the new one is pulled, and automatically remove old images.
@@ -277,7 +270,9 @@ docker compose -f watchtower.yml down
 
 ## Testing
 
-The project already includes tests under `tests/frontend/` and `tests/recommendation_engine/`.
+The project includes tests for the two custom subsystems that contain application logic: `tests/frontend/` and `tests/recommendation_engine/`. Both subsystems exceed 80% code coverage, enforced by CI/CD.
+
+The nginx subsystem has no unit tests. It contains only a reverse proxy configuration file (`nginx/nginx.conf`) with no custom application logic, so there is nothing meaningful to unit test.
 
 Install dependencies and run the suite from the repository root:
 
