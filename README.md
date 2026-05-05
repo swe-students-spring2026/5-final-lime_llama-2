@@ -112,7 +112,7 @@ recommendation-engine/data/faiss.index
 recommendation-engine/data/metadata.parquet
 ```
 
-Generate them from the repository root.
+These files can be downloaded directly from [Google Drive](https://drive.google.com/file/d/1xkDXjylqZUmSDS1vF9fydTfmff1kegoE/view?usp=sharing) and placed into `recommendation-engine/data/`. Alternatively, generate them from the repository root.
 
 On Windows:
 
