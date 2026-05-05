@@ -70,11 +70,9 @@ Each custom subsystem has a Dockerfile:
 - `recommendation-engine/Dockerfile`
 - `nginx/Dockerfile`
 
-TODO: Publish these images to Docker Hub and replace the placeholders below:
-
-- Frontend: `https://hub.docker.com/r/<dockerhub-user-or-org>/cinematch-frontend`
-- Recommendation engine: `https://hub.docker.com/r/<dockerhub-user-or-org>/cinematch-recommendation-engine`
-- Nginx: `https://hub.docker.com/r/<dockerhub-user-or-org>/cinematch-nginx`
+- Frontend: https://hub.docker.com/r/hewlettpl/cinematch-frontend
+- Recommendation engine: https://hub.docker.com/r/hewlettpl/cinematch-recommendation-engine
+- Nginx: https://hub.docker.com/r/hewlettpl/cinematch-nginx
 
 ## Environment Variables
 
@@ -236,11 +234,6 @@ docker compose down
 ```
 
 ## Docker CI/CD without Digital Ocean
-
-The Docker images are published at:
-- https://hub.docker.com/repository/docker/hewlettpl/cinematch-recommendation-engine
-- https://hub.docker.com/repository/docker/hewlettpl/cinematch-nginx
-- https://hub.docker.com/repository/docker/hewlettpl/cinematch-frontend
 
 The alternate docker-compose file `docker-compose.deploy.yml` will pull the image from Docker Hub instead. However, first ensure the repository-root `.env` is configured and the FAISS data files exist.
 
